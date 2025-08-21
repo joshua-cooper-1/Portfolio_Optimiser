@@ -293,7 +293,7 @@ tickers = ['AAPL', 'MSFT', 'GOOG'] #change which stocks to see
 
 data = yf.download(tickers, period="5y", auto_adjust=False)["Adj Close"] #adjusted close prices for a period of 5 years
 data = data[tickers] 
-efficient_portfolios = optimise_portfolio(data, tickers, [0.2, 0.3]) #adjust
+efficient_portfolios = optimise_portfolio(data, tickers, [0, 0.3]) #adjust
 
 
 
