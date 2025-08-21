@@ -141,7 +141,8 @@ def optimise_portfolio(data, tickers, range_of_returns):
         List of asset tickers to include in the portfolio.
     range_of_returns : list or tuple of float
         Lower and upper bounds of expected returns (annualised) for which to compute 
-        the efficient frontier, like [0.05, 0.25] for example.
+        the efficient frontier, like [0.05, 0.25] for example (as long as they are within
+        the expected returns of the individual stocks, otherwise the min and max expected returns are shown)
 
     Returns
     -------
@@ -177,8 +178,9 @@ def optimise_portfolio(data, tickers, range_of_returns):
 
     efficient_portfolios = []
 
-    min_return = range_of_returns[0]
-    max_return = range_of_returns[1]
+    min_return = max(range_of_returns[0], min(expected_returns))
+
+    max_return = min(range_of_returns[1], max(expected_returns))
     target_returns = np.linspace(min_return, max_return, 100)
 
     x0 = np.ones(len(tickers)) / len(tickers)  # equal weight start
